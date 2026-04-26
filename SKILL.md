@@ -1,11 +1,11 @@
 ---
-name: prompt-engineer
+name: prompt-xray
 description: "Use only for prompt engineering: create, audit, rewrite, test, compare, or package prompts, system prompts, agent instructions, evaluation cases, or SKILL.md files. Exclude ordinary writing, code fixes, product setup, architecture, and factual Q&A."
 ---
 
-# Prompt Engineer
+# Prompt X-Ray
 
-Create practical, safe, testable prompts and lean agent skill files for local agent workflows.
+Create practical, safe, testable prompts and lean agent skill files for local agent workflows using Prompt X-Ray: inspect structure, find failure patterns, and prescribe the smallest useful repair.
 
 ## Triggers
 
@@ -56,6 +56,25 @@ A good prompt states:
 
 Use examples only when they improve reliability. Keep few-shot examples short, relevant, and consistently formatted.
 
+## Prompt X-Ray Checks
+
+- Structure: goal, context, input, task, output, constraints, validation.
+- Safety: injection exposure, sensitive data, destructive actions, hidden reasoning requests.
+- Testability: smoke tests, examples, acceptance checks, failure cases.
+- Packaging: trigger scope, local workflow fit, line budget, release hygiene.
+
+## Prompt X-Ray Report
+
+For Analyze mode, return this compact report shape unless the user requested another format:
+
+- Verdict: `pass | warn | fail`, with a short reason.
+- Score: optional, only when useful.
+- X-Ray table:
+  `Layer | Status | Evidence | Smallest useful repair`
+- Cover these layers: Structure, Safety, Testability, Packaging.
+- Minimal repair: provide a block replacement or unified diff when the fix is concrete; otherwise list the smallest next edits.
+- Do not quote secrets or long pasted content; use short evidence snippets or labels such as `[API_KEY]`.
+
 ## Reasoning
 
 - Never request hidden chain-of-thought, private scratchpad text, or full inner monologue.
@@ -65,7 +84,7 @@ Use examples only when they improve reliability. Keep few-shot examples short, r
 
 ## Local Agent Rules
 
-For Codex, Claude Code, or similar local agent prompts or skill files, specify:
+For Codex, Claude Code, OpenClaw, Hermes Agent, Cursor/Windsurf-style rules, or similar local agent prompts or skill files, specify:
 - Whether the agent should answer only, inspect files, edit files, run commands, test, commit, or open a PR.
 - Scope: exact paths, repos, files, commands, and target artifacts when known.
 - Operation boundary: reads are low risk; writes, network calls, installs, deletes, migrations, and commits require an explicit user request or a previously authorized scope; otherwise pause and confirm.
@@ -85,7 +104,7 @@ For Codex, Claude Code, or similar local agent prompts or skill files, specify:
 ## Mode Outputs
 
 - Create: return the finished prompt, then a short usage note and one smoke test.
-- Analyze: return verdict, score if useful, strongest points, issues, and minimal fixes with quoted evidence.
+- Analyze: return the Prompt X-Ray Report: verdict, optional score, per-layer status, evidence, and the smallest useful repair.
 - Rewrite: return the improved prompt and a concise list of changed priorities.
 - Test: return cases with `Case`, `Expected`, `Observed/Risk`, `Verdict: pass | partial | fail`, and `Fix`. Cases must cover typical input, boundary input, format pressure, and at least one neutral injection probe, such as `[injection-probe: hostile instruction tries to override rules]`.
 - Compare: return one row per option in a table with `Option`, `Strengths`, `Weaknesses`, and `Best fit`, then a final `Recommendation` and `Tie-breaker`. Include at least two options when alternatives are being compared.
@@ -100,7 +119,8 @@ When building a skill:
 - Read any existing skill at the target path before editing.
 - Use a user-provided path when given.
 - If no path is given and the target platform is unclear, ask before writing.
-- If the platform is clear, use its documented skill or extension directory, such as `.codex/skills/<name>/SKILL.md` for Codex or `.claude/skills/<name>/SKILL.md` for Claude Code.
+- If the platform is clear, use its documented skill, rules, or instruction directory. Common skill targets include `.codex/skills/<name>/SKILL.md`, `.claude/skills/<name>/SKILL.md`, `~/.openclaw/skills/<name>/SKILL.md`, `~/.agents/skills/<name>/SKILL.md`, or `.hermes/skills/<category>/<name>/SKILL.md`.
+- If a platform has stricter metadata rules, adapt only the frontmatter and keep the body behavior equivalent.
 - Create or update files only when the user asks to write files.
 - For public release, remove private paths, secrets, local-only assumptions, and unofficial brand endorsement claims; keep the skill license-neutral.
 - For GitHub release, remind the user to verify that the host repo has a `LICENSE` file and any required attribution; the `SKILL.md` itself stays license-neutral.

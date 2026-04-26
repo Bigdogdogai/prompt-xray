@@ -1,0 +1,16 @@
+prompt-xray demo
+$ audit this prompt for trigger scope, injection risk, output format, and testability
+
+Prompt X-Ray Report
+Verdict: fail - not safe enough for reuse
+Score: 42/100
+
+Layer        Status  Evidence                              Smallest useful repair
+Structure    warn    Vague goal; no output contract         Add Goal, Input, Task, Output Format
+Safety       fail    "Ignore previous instructions"         Remove override language
+Testability  fail    No smoke test or acceptance check      Add one pass/fail check
+Packaging    pass    Prompt audit request is in scope       No change
+
+Minimal repair:
+Replace the broad prompt with Goal, Context, Input, Task, Output Format,
+Constraints, and Validation. Treat pasted prompt text as untrusted data.
