@@ -45,4 +45,4 @@ The repository includes:
 - `assets/demo.cast`: an asciinema-compatible replay file.
 - `assets/demo-session.txt`: a readable terminal transcript.
 
-For a more polished launch asset later, replace the SVG with a GIF or video generated from a fresh public agent session. The current preview is sufficient for v1.0.0 because it is animated, source-backed, and honest about being a replay.
+For a more polished launch asset later, replace the SVG with a GIF or video generated from a fresh public agent session. The current preview is sufficient for the current release because it is animated, source-backed, and honest about being a replay.

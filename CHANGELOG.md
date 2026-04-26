@@ -2,6 +2,16 @@
 
 All notable changes to this project are documented here.
 
+## 1.0.1 - 2026-04-27
+
+### Changed
+
+- Reframed the repository's expected-behavior evidence from benchmark/scorecard language to coverage/self-evaluation language.
+- Renamed `docs/benchmark.md` to `docs/coverage.md`.
+- Renamed the 2026-04-26 manual run snapshot to an author self-evaluation snapshot.
+- Added a README section clarifying that Prompt X-Ray coverage is not an automated benchmark, score, third-party certification, or model-comparable quality claim.
+- Moved deferred launch follow-ups from `docs/` to root `ROADMAP.md`.
+
 ## 1.0.0 - 2026-04-26
 
 ### Added
@@ -12,7 +22,7 @@ All notable changes to this project are documented here.
 - Multilingual README entry points for English, Simplified Chinese, Japanese, and Korean.
 - Prompt X-Ray expected-behavior set with 15 failure-pattern cases.
 - Manual Prompt X-Ray run snapshot for all 15 expected-behavior cases.
-- Public 15-case Prompt X-Ray benchmark scorecard.
+- Public 15-case Prompt X-Ray coverage notes.
 - Animated terminal replay backed by an asciinema-compatible `assets/demo.cast` file and readable transcript.
 - Before/after examples showing diagnosis and minimal repair.
 - Six supported modes: create, analyze, rewrite, test, compare, and package.

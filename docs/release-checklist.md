@@ -27,7 +27,7 @@ Use this before publishing or tagging a release.
 
 - Keep the animated demo near the top of `README.md` and backed by `assets/demo.cast` plus `assets/demo-session.txt`.
 - For a future launch refresh, re-record the demo from `docs/demo-script.md` in a fresh public agent session.
-- Deferred demo or growth items are tracked in `docs/launch-followups.md`.
+- Deferred demo or growth items are tracked in `ROADMAP.md`.
 - Run the manual scenarios in `examples/test-matrix.md` in a fresh agent session.
 - Ask an external reviewer to check the README for overstated claims, brand risk, and unclear value.
 - Confirm there are no private paths, tokens, credentials, customer data, or local-only assumptions.

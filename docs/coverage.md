@@ -1,10 +1,10 @@
-# Prompt X-Ray Benchmark
+# Prompt X-Ray Coverage
 
-This is a small, transparent benchmark for the `prompt-xray` skill. It is not a hosted eval suite and does not claim model-independent accuracy. It is a repo-local scorecard that makes the skill's expected behavior inspectable before release.
+Coverage of expected behaviors across 15 prompt failure patterns. Authored and self-evaluated by the maintainer; not a benchmark, not third-party verified, and not model-comparable. Use this as worked examples, not as a quality claim.
 
-## Scope
+## Coverage Areas
 
-The benchmark covers 15 prompt-engineering cases in [tests/prompt-xray](../tests/prompt-xray):
+The coverage set maps 15 prompt-engineering cases in [tests/prompt-xray](../tests/prompt-xray):
 
 | Coverage area | Cases | Expected behavior |
 | --- | --- | --- |
@@ -14,19 +14,19 @@ The benchmark covers 15 prompt-engineering cases in [tests/prompt-xray](../tests
 | Over-broad trigger or task scope | 06, 09, 15 | Narrow the task or avoid triggering for ordinary writing. |
 | Local agent workflow risk | 08, 10, 12 | Add file scope, command boundaries, verification, and remaining-risk reporting. |
 
-## Current v1.0.0 Scorecard
+## Current v1.0.1 Author Self-Evaluation
 
-Snapshot: [2026-04-26 manual run](../tests/prompt-xray-runs/2026-04-26-manual-run.md)
+Snapshot: [2026-04-26 author self-eval](../tests/prompt-xray-runs/2026-04-26-author-self-eval.md)
 
-| Check | Result |
+| Coverage check | Current observation |
 | --- | --- |
-| Expected mode identified for prompt-engineering cases | 14/14 |
-| Ordinary writing false-trigger avoided | 1/1 |
-| Injection-style risks identified | 3/3 |
-| Hidden reasoning leakage identified | 2/2 |
-| Missing or weak output-format issues identified | 4/4 |
-| Local agent workflow risks identified | 3/3 |
-| Smallest useful repair recorded for every case | 15/15 |
+| Expected mode identified for prompt-engineering cases | Covered in the self-eval snapshot |
+| Ordinary writing false-trigger avoided | Covered in the self-eval snapshot |
+| Injection-style risks identified | Covered in the self-eval snapshot |
+| Hidden reasoning leakage identified | Covered in the self-eval snapshot |
+| Missing or weak output-format issues identified | Covered in the self-eval snapshot |
+| Local agent workflow risks identified | Covered in the self-eval snapshot |
+| Smallest useful repair recorded for every case | Covered for all 15 cases |
 
 ## How To Reproduce
 
@@ -34,9 +34,9 @@ Snapshot: [2026-04-26 manual run](../tests/prompt-xray-runs/2026-04-26-manual-ru
 2. Start a fresh agent session.
 3. For each file in `tests/prompt-xray/*.md`, ask the agent to analyze the `Input Prompt` using Prompt X-Ray.
 4. Compare the result with the `Expected X-Ray Findings` and `Minimal Repair` sections.
-5. Record observed behavior in `tests/prompt-xray-runs/<date>-manual-run.md`.
+5. Record observed behavior in `tests/prompt-xray-runs/<date>-author-self-eval.md`.
 
-## What This Benchmark Is Good For
+## What This Coverage Is Good For
 
 - Making the skill's safety boundaries visible.
 - Checking that the trigger is narrow enough.
@@ -46,5 +46,7 @@ Snapshot: [2026-04-26 manual run](../tests/prompt-xray-runs/2026-04-26-manual-ru
 ## What It Is Not
 
 - It is not an automated model benchmark.
+- It is not third-party verified.
+- It is not a scoring system.
 - It is not a claim that every agent will produce identical text.
 - It is not a replacement for production eval tools such as promptfoo, LangSmith, PromptLayer, or a custom CI evaluation suite.

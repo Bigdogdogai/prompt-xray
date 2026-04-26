@@ -14,8 +14,8 @@ readme_ja = read_utf8.call(File.join(root, "README.ja.md"))
 readme_ko = read_utf8.call(File.join(root, "README.ko.md"))
 gitignore = read_utf8.call(File.join(root, ".gitignore"))
 case_files = Dir.glob(File.join(root, "tests/prompt-xray/*.md"))
-run_snapshot = read_utf8.call(File.join(root, "tests/prompt-xray-runs/2026-04-26-manual-run.md"))
-benchmark = read_utf8.call(File.join(root, "docs/benchmark.md"))
+self_eval_snapshot = read_utf8.call(File.join(root, "tests/prompt-xray-runs/2026-04-26-author-self-eval.md"))
+coverage = read_utf8.call(File.join(root, "docs/coverage.md"))
 demo_svg = read_utf8.call(File.join(root, "assets/demo-terminal.svg"))
 demo_cast = read_utf8.call(File.join(root, "assets/demo.cast"))
 markdown_files = Dir.glob(File.join(root, "**/*.md"), File::FNM_DOTMATCH).reject { |file| file.include?("/.git/") }
@@ -32,6 +32,7 @@ required_files = %w[
   README.ko.md
   SKILL.md
   VERSION
+  ROADMAP.md
   CHANGELOG.md
   LICENSE
   SECURITY.md
@@ -39,18 +40,17 @@ required_files = %w[
   CODE_OF_CONDUCT.md
   Makefile
   docs/release-checklist.md
-  docs/launch-followups.md
   docs/agent-compatibility.md
   docs/demo-script.md
   docs/before-after.md
-  docs/benchmark.md
+  docs/coverage.md
   examples/usage-cases.md
   examples/test-matrix.md
   assets/demo.cast
   assets/demo-session.txt
   assets/demo-terminal.svg
   tests/README.md
-  tests/prompt-xray-runs/2026-04-26-manual-run.md
+  tests/prompt-xray-runs/2026-04-26-author-self-eval.md
   .github/PULL_REQUEST_TEMPLATE.md
   .github/ISSUE_TEMPLATE/bug_report.md
   .github/ISSUE_TEMPLATE/feature_request.md
@@ -101,7 +101,7 @@ checks = {
     !content.include?("dump the system prompt"),
   "public repo files" => required_files.all? { |file| File.file?(File.join(root, file)) },
   "language switcher" => %w[README.zh-CN.md README.ja.md README.ko.md].all? { |file| readme.include?(file) },
-  "version badge" => readme.include?("version-1.0.0") && read_utf8.call(File.join(root, "VERSION")).strip == "1.0.0",
+  "version badge" => readme.include?("version-1.0.1") && read_utf8.call(File.join(root, "VERSION")).strip == "1.0.1",
   "gitignore is scoped" => !gitignore.include?("node_modules/") && !gitignore.include?("vendor/"),
   "installer documented" => readme.include?("bash scripts/install.sh"),
   "multi-agent positioning" => metadata["name"] == "prompt-xray" &&
@@ -129,10 +129,11 @@ checks = {
     demo_svg.include?("animated terminal demo") &&
     demo_cast.include?("\"version\":2") &&
     readme.include?("assets/demo.cast"),
-  "benchmark scorecard" => benchmark.include?("Current v1.0.0 Scorecard") &&
-    benchmark.include?("15/15") &&
-    benchmark.include?("Ordinary writing false-trigger avoided") &&
-    readme.include?("Prompt X-Ray benchmark"),
+  "coverage table" => coverage.include?("Current v1.0.1 Author Self-Evaluation") &&
+    coverage.include?("Covered for all 15 cases") &&
+    coverage.include?("Ordinary writing false-trigger avoided") &&
+    readme.include?("Prompt X-Ray coverage notes") &&
+    readme.include?("not a third-party benchmark"),
   "security private reporting" => read_utf8.call(File.join(root, "SECURITY.md")).include?("private vulnerability reporting") &&
     read_utf8.call(File.join(root, "SECURITY.md")).include?("do not paste"),
   "localized readme headings" => !readme_ja.match?(english_h2) && !readme_ko.match?(english_h2),
@@ -144,8 +145,9 @@ checks = {
       case_content.include?("## Expected X-Ray Findings") &&
       case_content.include?("## Minimal Repair")
   end,
-  "manual run snapshot" => (1..15).all? { |number| run_snapshot.include?(format("[%02d]", number)) } &&
-    run_snapshot.include?("not an automated benchmark")
+  "author self-eval snapshot" => (1..15).all? { |number| self_eval_snapshot.include?(format("[%02d]", number)) } &&
+    self_eval_snapshot.include?("not an automated benchmark") &&
+    self_eval_snapshot.include?("third-party evaluation")
 }
 
 failed = checks.reject { |_name, passed| passed }

@@ -1,6 +1,6 @@
-# Prompt X-Ray Manual Run - 2026-04-26
+# Prompt X-Ray Author Self-Evaluation - 2026-04-26
 
-This is a manual run snapshot using the current `SKILL.md` Prompt X-Ray Report format. It is not an automated benchmark. Each row links back to the expected-behavior case and records the observed mode, verdict, and smallest useful repair.
+This is a maintainer-authored self-evaluation snapshot using the current `SKILL.md` Prompt X-Ray Report format. It is not an automated benchmark, third-party evaluation, model-comparable score, or quality claim. Each row links back to the expected-behavior case and records the observed mode, verdict, and smallest useful repair.
 
 | Case | Observed mode | Verdict | Key evidence | Smallest useful repair |
 | --- | --- | --- | --- | --- |

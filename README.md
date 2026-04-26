@@ -3,7 +3,7 @@
 **Languages:** English | [简体中文](README.zh-CN.md) | [日本語](README.ja.md) | [한국어](README.ko.md)
 
 [![Skill](https://img.shields.io/badge/Agent-skill-111827)](#install)
-[![Version](https://img.shields.io/badge/version-1.0.0-2563eb)](VERSION)
+[![Version](https://img.shields.io/badge/version-1.0.1-2563eb)](VERSION)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 A compact agent skill/reference for **Prompt X-Ray**: create, audit, rewrite, test, compare, and package prompts or Markdown-based agent skill files for AI coding agents.
@@ -13,6 +13,12 @@ It is designed for local agent workflows where a good prompt is not just wording
 ![prompt-xray terminal preview](assets/demo-terminal.svg)
 
 The animated preview is backed by an asciinema-compatible replay at [assets/demo.cast](assets/demo.cast) and a readable terminal transcript at [assets/demo-session.txt](assets/demo-session.txt). To re-record it from a fresh agent session, follow [docs/demo-script.md](docs/demo-script.md).
+
+## What This Is And Is Not
+
+This is a local prompt-engineering method and agent skill with worked examples. It is not an automated benchmark, a scoring system, a third-party certification, or a claim that every model will behave identically.
+
+`v1.0` was authored in a focused sprint. Future iteration is intended to be feedback-driven as real users, issues, and use cases surface.
 
 ## Why This Exists
 
@@ -41,7 +47,7 @@ Prompt X-Ray is the skill's working method: inspect the prompt's skeleton, find 
 
 Analyze mode emits a **Prompt X-Ray Report**: `Verdict`, optional `Score`, and a table with `Layer`, `Status`, `Evidence`, and `Smallest useful repair`. Concrete fixes should be returned as a block replacement or unified diff when that is clearer than prose.
 
-The included [Prompt X-Ray benchmark](docs/benchmark.md) covers 15 common prompt failure patterns, including 3 injection-style risks, 2 hidden-reasoning leakage cases, 4 missing or weak output-format specifications, and 1 ordinary-writing false-trigger check. It is a transparent manual scorecard, not a hosted automated benchmark. See [before/after examples](docs/before-after.md) for concrete repairs.
+The included [Prompt X-Ray coverage notes](docs/coverage.md) map 15 common prompt failure patterns, including 3 injection-style risks, 2 hidden-reasoning leakage cases, 4 missing or weak output-format specifications, and 1 ordinary-writing false-trigger check. They are maintainer-authored worked examples and a self-evaluation snapshot, not a third-party benchmark or model-comparable quality claim. See [before/after examples](docs/before-after.md) for concrete repairs.
 
 ## Quick Start
 
@@ -196,9 +202,9 @@ The validator checks:
 
 Manual validation scenarios are listed in [examples/test-matrix.md](examples/test-matrix.md).
 Prompt X-Ray failure-pattern cases are listed in [tests/README.md](tests/README.md).
-The 15-case Prompt X-Ray scorecard is in [docs/benchmark.md](docs/benchmark.md).
-The current manual run snapshot is in [tests/prompt-xray-runs/2026-04-26-manual-run.md](tests/prompt-xray-runs/2026-04-26-manual-run.md).
-Launch follow-ups that were intentionally deferred are tracked in [docs/launch-followups.md](docs/launch-followups.md).
+The 15-case Prompt X-Ray coverage table is in [docs/coverage.md](docs/coverage.md).
+The current author self-evaluation snapshot is in [tests/prompt-xray-runs/2026-04-26-author-self-eval.md](tests/prompt-xray-runs/2026-04-26-author-self-eval.md).
+Deferred follow-ups are tracked in [ROADMAP.md](ROADMAP.md).
 
 ## Repository Layout
 
