@@ -2,6 +2,19 @@
 
 All notable changes to this project are documented here.
 
+## Unreleased
+
+### Added
+
+- Added three long-form realistic prompt cases for bug fixing, customer research, and skill packaging workflows.
+- Added two subtle indirect injection cases covering few-shot example injection and Markdown/HTML hidden-content injection.
+- Added `scripts/validate_cases.rb` to validate expected-behavior case structure, numbering, modes, findings, and long-form case length.
+
+### Changed
+
+- Revised Case 14 to distinguish private scratchpad/policy-log leakage from the simpler hidden chain-of-thought request in Case 03.
+- Expanded coverage notes and tests README from 15 to 20 cases.
+
 ## 1.0.1 - 2026-04-27
 
 ### Changed

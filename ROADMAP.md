@@ -5,13 +5,15 @@ These items track real follow-up work for `prompt-xray`. They should be handled 
 ## Completed
 
 - [x] Replace the static `assets/demo-terminal.svg` placeholder with an animated replay backed by `assets/demo.cast` and `assets/demo-session.txt`.
-- [x] Add an author self-evaluation snapshot for all 15 expected-behavior cases under `tests/prompt-xray-runs/`.
-- [x] Add public 15-case coverage notes in `docs/coverage.md`.
+- [x] Add author self-evaluation snapshots under `tests/prompt-xray-runs/`.
+- [x] Add public 20-case coverage notes in `docs/coverage.md`.
 - [x] Reframe benchmark/scorecard language as coverage and self-evaluation language.
+- [x] Add long-form realistic prompt cases and subtle indirect injection cases.
+- [x] Add a lightweight expected-behavior case structure validator.
 
 ## Next
 
-- [ ] Re-run all 15 expected-behavior cases in a fresh public release session before cutting a later release.
+- [ ] Re-run all 20 expected-behavior cases in a fresh public release session before cutting a later release.
 - [ ] Add one real-session case study when the skill catches a practical prompt issue in actual use.
 - [ ] Submit to one relevant awesome-list or community directory after `v1.0.1`.
 - [ ] Write one external post about the Prompt X-Ray method, with this repository as a reference.

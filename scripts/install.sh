@@ -56,6 +56,6 @@ esac
 mkdir -p "$target_dir"
 cp "$repo_dir/SKILL.md" "$target_dir/SKILL.md"
 
-echo "Installed prompt-xray for $platform to $target_dir/SKILL.md"
+echo "Installed Prompt X-Ray (prompt-xray) for $platform to $target_dir/SKILL.md"
 echo "Start a fresh agent session if your client does not hot-reload skills."
 echo "If the skill does not load after restart, see docs/agent-compatibility.md."

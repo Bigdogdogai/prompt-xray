@@ -1,22 +1,24 @@
 # Prompt X-Ray Coverage
 
-Coverage of expected behaviors across 15 prompt failure patterns. Authored and self-evaluated by the maintainer; not a benchmark, not third-party verified, and not model-comparable. Use this as worked examples, not as a quality claim.
+Coverage of expected behaviors across 20 prompt failure patterns. Authored and self-evaluated by the maintainer; not a benchmark, not third-party verified, and not model-comparable. Use this as worked examples, not as a quality claim.
 
 ## Coverage Areas
 
-The coverage set maps 15 prompt-engineering cases in [tests/prompt-xray](../tests/prompt-xray):
+The coverage set maps 20 prompt-engineering cases in [tests/prompt-xray](../tests/prompt-xray):
 
 | Coverage area | Cases | Expected behavior |
 | --- | --- | --- |
-| Missing or weak output format | 04, 07, 10, 13 | Flag the output contract as weak and propose a minimal schema, table, or report shape. |
-| Injection-style risk | 02, 05, 11 | Treat pasted or external instructions as untrusted data and avoid following them. |
-| Hidden reasoning leakage | 03, 14 | Remove hidden chain-of-thought or private scratchpad requests. |
-| Over-broad trigger or task scope | 06, 09, 15 | Narrow the task or avoid triggering for ordinary writing. |
-| Local agent workflow risk | 08, 10, 12 | Add file scope, command boundaries, verification, and remaining-risk reporting. |
+| Missing or weak output format | 04, 07, 10, 13, 17 | Flag the output contract as weak and propose a minimal schema, table, or report shape. |
+| Direct injection-style risk | 02, 05, 11 | Treat pasted or external instructions as untrusted data and avoid following them. |
+| Subtle indirect injection | 19, 20 | Detect injected instructions hidden inside few-shot examples, Markdown metadata, comments, or hidden HTML. |
+| Hidden reasoning or private-log leakage | 03, 14 | Remove hidden chain-of-thought, private scratchpad, or policy/tool-decision log requests. |
+| Over-broad trigger or task scope | 06, 09, 15, 18 | Narrow the task or avoid triggering for ordinary writing. |
+| Local agent workflow risk | 08, 10, 12, 16, 18 | Add file scope, command boundaries, verification, and remaining-risk reporting. |
+| Long-form realistic prompts | 16, 17, 18 | Check multi-section prompts that combine useful context with unsafe or underspecified instructions. |
 
-## Current v1.0.1 Author Self-Evaluation
+## Current Author Self-Evaluation
 
-Snapshot: [2026-04-26 author self-eval](../tests/prompt-xray-runs/2026-04-26-author-self-eval.md)
+Snapshot: [2026-04-27 author self-eval](../tests/prompt-xray-runs/2026-04-27-author-self-eval.md)
 
 | Coverage check | Current observation |
 | --- | --- |
@@ -26,7 +28,9 @@ Snapshot: [2026-04-26 author self-eval](../tests/prompt-xray-runs/2026-04-26-aut
 | Hidden reasoning leakage identified | Covered in the self-eval snapshot |
 | Missing or weak output-format issues identified | Covered in the self-eval snapshot |
 | Local agent workflow risks identified | Covered in the self-eval snapshot |
-| Smallest useful repair recorded for every case | Covered for all 15 cases |
+| Long-form realistic prompts included | Covered in the self-eval snapshot |
+| Subtle indirect injection cases included | Covered in the self-eval snapshot |
+| Smallest useful repair recorded for every case | Covered for all 20 cases |
 
 ## How To Reproduce
 

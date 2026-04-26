@@ -1,18 +1,19 @@
 # Prompt X-Ray Expected-Behavior Cases
 
-This directory contains 15 prompt failure patterns for manual review. Each case includes an input prompt, the mode that should apply, expected X-Ray findings, and the smallest useful repair. These files power the transparent coverage notes in [../docs/coverage.md](../docs/coverage.md); they are not a hosted automated benchmark or third-party evaluation.
+This directory contains 20 prompt failure patterns for manual review. Each case includes an input prompt, the mode that should apply, expected X-Ray findings, and the smallest useful repair. These files power the transparent coverage notes in [../docs/coverage.md](../docs/coverage.md); they are not a hosted automated benchmark or third-party evaluation.
 
-An author self-evaluation snapshot using the current Prompt X-Ray Report format is available at [prompt-xray-runs/2026-04-26-author-self-eval.md](prompt-xray-runs/2026-04-26-author-self-eval.md).
+An author self-evaluation snapshot using the current Prompt X-Ray Report format is available at [prompt-xray-runs/2026-04-27-author-self-eval.md](prompt-xray-runs/2026-04-27-author-self-eval.md).
 
 ## Coverage
 
 | Area | Cases |
 | --- | --- |
-| Missing or weak output format | 04, 07, 10, 13 |
-| Injection-style risk | 02, 05, 11 |
+| Missing or weak output format | 04, 07, 10, 13, 17 |
+| Injection-style risk | 02, 05, 11, 19, 20 |
 | Hidden reasoning leakage | 03, 14 |
-| Over-broad trigger or task scope | 06, 09, 15 |
-| Local agent workflow risk | 08, 10, 12 |
+| Over-broad trigger or task scope | 06, 09, 15, 18 |
+| Local agent workflow risk | 08, 10, 12, 16, 18 |
+| Long-form realistic prompt | 16, 17, 18 |
 
 ## Cases
 
@@ -31,6 +32,11 @@ An author self-evaluation snapshot using the current Prompt X-Ray Report format 
 13. [Ambiguous comparison prompt](prompt-xray/13-ambiguous-comparison.md)
 14. [Private scratchpad leakage](prompt-xray/14-private-scratchpad.md)
 15. [Skill description too broad](prompt-xray/15-skill-description-too-broad.md)
+16. [Long bugfix agent workflow](prompt-xray/16-long-bugfix-agent-workflow.md)
+17. [Long customer research summary](prompt-xray/17-long-customer-research-summary.md)
+18. [Long skill packaging request](prompt-xray/18-long-skill-packaging-request.md)
+19. [Few-shot example injection](prompt-xray/19-few-shot-example-injection.md)
+20. [Markdown and HTML indirect injection](prompt-xray/20-markdown-html-indirect-injection.md)
 
 ## Manual Pass Criteria
 

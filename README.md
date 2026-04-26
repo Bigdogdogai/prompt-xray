@@ -1,4 +1,4 @@
-# prompt-xray
+# Prompt X-Ray
 
 **Languages:** English | [简体中文](README.zh-CN.md) | [日本語](README.ja.md) | [한국어](README.ko.md)
 
@@ -10,7 +10,7 @@ A compact agent skill/reference for **Prompt X-Ray**: create, audit, rewrite, te
 
 It is designed for local agent workflows where a good prompt is not just wording. It needs a clear task, trusted input boundaries, explicit output format, safety rules, and a way to verify the result.
 
-![prompt-xray terminal preview](assets/demo-terminal.svg)
+![Prompt X-Ray terminal preview](assets/demo-terminal.svg)
 
 The animated preview is backed by an asciinema-compatible replay at [assets/demo.cast](assets/demo.cast) and a readable terminal transcript at [assets/demo-session.txt](assets/demo-session.txt). To re-record it from a fresh agent session, follow [docs/demo-script.md](docs/demo-script.md).
 
@@ -47,7 +47,7 @@ Prompt X-Ray is the skill's working method: inspect the prompt's skeleton, find 
 
 Analyze mode emits a **Prompt X-Ray Report**: `Verdict`, optional `Score`, and a table with `Layer`, `Status`, `Evidence`, and `Smallest useful repair`. Concrete fixes should be returned as a block replacement or unified diff when that is clearer than prose.
 
-The included [Prompt X-Ray coverage notes](docs/coverage.md) map 15 common prompt failure patterns, including 3 injection-style risks, 2 hidden-reasoning leakage cases, 4 missing or weak output-format specifications, and 1 ordinary-writing false-trigger check. They are maintainer-authored worked examples and a self-evaluation snapshot, not a third-party benchmark or model-comparable quality claim. See [before/after examples](docs/before-after.md) for concrete repairs.
+The included [Prompt X-Ray coverage notes](docs/coverage.md) map 20 prompt failure patterns, including direct injection risks, subtle few-shot and Markdown/HTML injection, hidden-reasoning leakage, weak output contracts, local workflow risks, long-form realistic prompts, and ordinary-writing false-trigger checks. They are maintainer-authored worked examples and a self-evaluation snapshot, not a third-party benchmark or model-comparable quality claim. See [before/after examples](docs/before-after.md) for concrete repairs.
 
 ## Quick Start
 
@@ -197,13 +197,14 @@ The validator checks:
 - public repo hygiene files
 - line budget
 - local Markdown links
+- expected-behavior case structure
 - installer shell syntax
 - workflow YAML parsing
 
 Manual validation scenarios are listed in [examples/test-matrix.md](examples/test-matrix.md).
 Prompt X-Ray failure-pattern cases are listed in [tests/README.md](tests/README.md).
-The 15-case Prompt X-Ray coverage table is in [docs/coverage.md](docs/coverage.md).
-The current author self-evaluation snapshot is in [tests/prompt-xray-runs/2026-04-26-author-self-eval.md](tests/prompt-xray-runs/2026-04-26-author-self-eval.md).
+The 20-case Prompt X-Ray coverage table is in [docs/coverage.md](docs/coverage.md).
+The current author self-evaluation snapshot is in [tests/prompt-xray-runs/2026-04-27-author-self-eval.md](tests/prompt-xray-runs/2026-04-27-author-self-eval.md).
 Deferred follow-ups are tracked in [ROADMAP.md](ROADMAP.md).
 
 ## Repository Layout

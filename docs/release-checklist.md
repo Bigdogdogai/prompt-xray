@@ -5,6 +5,7 @@ Use this before publishing or tagging a release.
 ## Required
 
 - `ruby scripts/validate_skill.rb` passes.
+- `ruby scripts/validate_cases.rb` passes.
 - `make validate` passes.
 - The GitHub Actions validation workflow matches the local validator command.
 - `git status --short` is clean except for intentional release changes.
@@ -14,7 +15,7 @@ Use this before publishing or tagging a release.
 - Localized README files link back to each other and do not contradict the English README.
 - Japanese and Korean README files should not leave major English section headings untranslated.
 - Prompt X-Ray positioning and the Prompt X-Ray Report shape are reflected in README, SKILL.md, examples, and expected-behavior cases.
-- `tests/README.md` lists all 15 Prompt X-Ray cases.
+- `tests/README.md` lists all Prompt X-Ray cases.
 - `VERSION` matches the intended Git tag.
 - `CHANGELOG.md` has an entry for the release.
 - `LICENSE` holder matches the GitHub account or organization publishing the repo.

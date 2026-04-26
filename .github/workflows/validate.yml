@@ -19,3 +19,4 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby-version }}
       - run: ruby scripts/validate_skill.rb
+      - run: ruby scripts/validate_cases.rb
