@@ -12,11 +12,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby-version: ["3.0", "3.3"]
+        python-version: ["3.10", "3.12"]
     steps:
       - uses: actions/checkout@v4
-      - uses: ruby/setup-ruby@v1
+      - uses: actions/setup-python@v5
         with:
-          ruby-version: ${{ matrix.ruby-version }}
-      - run: ruby scripts/validate_skill.rb
-      - run: ruby scripts/validate_cases.rb
+          python-version: ${{ matrix.python-version }}
+      - run: python3 scripts/validate_skill.py
+      - run: python3 scripts/validate_cases.py

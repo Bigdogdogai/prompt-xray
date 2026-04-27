@@ -16,6 +16,67 @@
 
 这个 animated preview 对应 [assets/demo.cast](assets/demo.cast) 和可读 transcript [assets/demo-session.txt](assets/demo-session.txt)。如果要用新的 agent session 重新录制，按 [docs/demo-script.md](docs/demo-script.md) 操作。
 
+## 60 秒案例
+
+一个看起来没问题、但会悄悄翻车的 Codex prompt：
+
+```text
+Fix the failing tests in this repo and make sure everything passes.
+```
+
+跑一遍 Prompt X-Ray，报告很难看：
+
+```text
+Verdict: fail
+
+| Layer       | Status | Evidence                                              | Smallest useful repair                          |
+| ----------- | ------ | ----------------------------------------------------- | ----------------------------------------------- |
+| Structure   | fail   | 没有输入边界、运行命令、完成判定                      | 列出失败用例、运行命令、可改/不可改目录         |
+| Safety     | warn   | agent 可能改 tests/、migrations/ 或 vendored 代码     | 限制只能改 src/，禁止改 migration               |
+| Testability | fail   | "make sure everything passes" 无法验证                | 要求 pytest -x 退出 0、无 skip/xfail            |
+| Packaging   | pass   | 一次性 prompt，无 skill 打包问题                      | n/a                                             |
+```
+
+skill 给的最小修复：
+
+```text
+# Goal
+用最小改动让 pytest 通过下面列出的失败用例。
+
+# Input
+- Repo root: $REPO_ROOT
+- Failing tests:
+  - tests/test_payments.py::test_refund_partial
+  - tests/test_orders.py::test_cancel_pending
+- Run command: pytest -x tests/
+
+# Task
+1. 先读两个失败 test，理清被测契约。
+2. 只改 src/ 下的文件来满足契约。
+3. 每次修改后跑 pytest -x tests/，第一次绿了就停。
+
+# Output Format
+- 改动文件列表，每个文件一行说明。
+- 最终 pytest summary 行。
+- 如果有 test 被 skip / xfail / fixture-mock，列出 "Remaining risks"。
+
+# Constraints
+- 不改 tests/ 和 migrations/。
+- 不新增依赖。
+
+# Validation
+只有当 `pytest -x tests/` 退出 0、列表中的 test 没有 skip/xfail，任务才算完成。
+```
+
+agent 行为上真正发生的变化：
+
+- **爆炸半径锁死。** agent 不再去改 `migrations/`，也不会通过"改测试"的方式让测试通过。
+- **完成是可验证的。** "everything passes" 变成"exit 0 且无 skip/xfail" — 循环有了真正的退出条件。
+- **报告变得可审计。** agent 必须列出改了哪些文件、留下了什么风险，不是只说一句"修好了"。
+- **不再悄悄装依赖。** 堵住了最常见的隐性失败：agent 默默 `pip install` 一个库来让测试通过。
+
+整个价值循环就这一句话：**inspect → diagnose → smallest useful repair**。skill 是直接对你已经在用的 prompt 做这件事，而不是要求你一上来就写一个完美 prompt。
+
 ## 为什么存在
 
 Google 的 prompt design 指南强调迭代：写结构化 prompt、评估模型输出、再改进。Gemini 的 prompt design 指南强调清晰具体的指令、约束、Markdown 或 XML 风格结构，以及 agentic workflow 中的风险评估、权限处理和输出格式。
@@ -164,12 +225,27 @@ Package this recurring workflow as a Codex SKILL.md. Generate the content only; 
 
 如果你需要轻量本地工作流，用这个 skill。如果你需要跨数据集回归测试，用 eval platform；如果你需要团队协作和部署控制，用 prompt registry；如果你主要想找示例，用 prompt library。
 
+### 为什么不直接用 Claude Skills、Codex prompts 或 inline 写？
+
+老实回答：大多数情况下你确实应该这么做。Prompt X-Ray 只在特定几类工作上才值得装。
+
+| 你想做的事 | 用什么 |
+| --- | --- |
+| 把一次性 prompt 在多次会话里复用 | 用 native `.claude/skills` 或 Codex 自己的 `SKILL.md`，**不需要本仓库** |
+| 从零写 prompt，自己已经清楚什么是好 | inline 写就行，skill 也不应该在这里触发 |
+| 审核已有 prompt 里那些会让 agent 在生产中翻车的失败模式：弱输出契约、粘贴内容引发 injection、爆炸半径不受控、缺验证步骤 | Prompt X-Ray，本来就是为这件事造的 |
+| 把"大多数时候能跑"的 prompt 改写成有真正完成判定的 prompt | Prompt X-Ray，四层报告能让改写保持最小 |
+| 把重复的 agent 行为打包成一份触发严格、能跨 Codex/Claude Code/OpenClaw/Hermes 复用的 `SKILL.md` | Prompt X-Ray 的 `package` 模式 |
+| 跨模型/数据集跑自动化回归 | promptfoo 这类 eval 平台。本 skill 是纯本地工具 |
+
+一句话：这是一个 **prompt 审计器和打包器**，不是 prompt 库或 prompt store。如果你的 prompt 已经能通过四层 X-Ray 检查（Structure / Safety / Testability / Packaging），就不需要它。
+
 ## 验证
 
 运行：
 
 ```bash
-ruby scripts/validate_skill.rb
+python3 scripts/validate_skill.py
 ```
 
 手动验证场景见 [examples/test-matrix.md](examples/test-matrix.md)。
@@ -181,7 +257,7 @@ Prompt X-Ray failure-pattern 案例见 [tests/README.md](tests/README.md)。
 发布前运行：
 
 ```bash
-ruby scripts/validate_skill.rb
+python3 scripts/validate_skill.py
 git status --short
 ```
 

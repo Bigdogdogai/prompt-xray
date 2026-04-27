@@ -8,12 +8,20 @@ All notable changes to this project are documented here.
 
 - Added three long-form realistic prompt cases for bug fixing, customer research, and skill packaging workflows.
 - Added two subtle indirect injection cases covering few-shot example injection and Markdown/HTML hidden-content injection.
-- Added `scripts/validate_cases.rb` to validate expected-behavior case structure, numbering, modes, findings, and long-form case length.
+- Added `scripts/validate_cases.py` (Python stdlib) to validate expected-behavior case structure, numbering, modes, findings, and long-form case length.
+- Added a "60-Second Case Study" section to the EN and zh-CN READMEs showing a real Codex prompt, the Prompt X-Ray report, and the minimal repair.
+- Added a "Why not just use Claude Skills, Codex prompts, or write it inline?" subsection clarifying when this skill earns its install vs. when native skill systems are enough.
 
 ### Changed
 
 - Revised Case 14 to distinguish private scratchpad/policy-log leakage from the simpler hidden chain-of-thought request in Case 03.
 - Expanded coverage notes and tests README from 15 to 20 cases.
+- Ported validators from Ruby to Python 3 stdlib (`scripts/validate_skill.py`, `scripts/validate_cases.py`) to lower the install footprint for the project's primary audience and avoid a Ruby toolchain dependency.
+- Updated `Makefile`, GitHub Actions workflow (now Python 3.10 / 3.12 matrix), README quick-start blocks, release checklist, and PR template to reference the Python validators.
+
+### Removed
+
+- Removed `scripts/validate_skill.rb` and `scripts/validate_cases.rb`. The Python ports are functionally equivalent and run the same 33 + 1 checks.
 
 ## 1.0.1 - 2026-04-27
 

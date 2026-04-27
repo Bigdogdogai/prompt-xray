@@ -153,7 +153,7 @@ Package this recurring workflow as a Codex SKILL.md. Generate the content only; 
 ## 검증
 
 ```bash
-ruby scripts/validate_skill.rb
+python3 scripts/validate_skill.py
 ```
 
 Manual scenarios: [examples/test-matrix.md](examples/test-matrix.md).

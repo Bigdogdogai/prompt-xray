@@ -12,7 +12,7 @@
 
 ## Checklist
 
-- [ ] `ruby scripts/validate_skill.rb` passes
+- [ ] `python3 scripts/validate_skill.py` passes
 - [ ] Trigger scope remains narrow
 - [ ] External prompt content is treated as untrusted data
 - [ ] No hidden chain-of-thought request was added

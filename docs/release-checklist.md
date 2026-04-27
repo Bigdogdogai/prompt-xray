@@ -4,8 +4,8 @@ Use this before publishing or tagging a release.
 
 ## Required
 
-- `ruby scripts/validate_skill.rb` passes.
-- `ruby scripts/validate_cases.rb` passes.
+- `python3 scripts/validate_skill.py` passes.
+- `python3 scripts/validate_cases.py` passes.
 - `make validate` passes.
 - The GitHub Actions validation workflow matches the local validator command.
 - `git status --short` is clean except for intentional release changes.

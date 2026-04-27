@@ -14,6 +14,67 @@ It is designed for local agent workflows where a good prompt is not just wording
 
 The animated preview is backed by an asciinema-compatible replay at [assets/demo.cast](assets/demo.cast) and a readable terminal transcript at [assets/demo-session.txt](assets/demo-session.txt). To re-record it from a fresh agent session, follow [docs/demo-script.md](docs/demo-script.md).
 
+## 60-Second Case Study
+
+A common Codex prompt that looks fine but quietly fails:
+
+```text
+Fix the failing tests in this repo and make sure everything passes.
+```
+
+Run it through Prompt X-Ray and the report is unflattering:
+
+```text
+Verdict: fail
+
+| Layer       | Status | Evidence                                                  | Smallest useful repair                                  |
+| ----------- | ------ | --------------------------------------------------------- | ------------------------------------------------------- |
+| Structure   | fail   | No input boundary, no run command, no done-condition.     | Name failing tests, run command, in/out directories.    |
+| Safety      | warn   | Agent may mass-edit tests/, migrations/, or vendored code.| Restrict edits to src/; reject migration changes.       |
+| Testability | fail   | "Make sure everything passes" is unverifiable.            | Require pytest -x exit 0 with no skip/xfail.            |
+| Packaging   | pass   | One-shot prompt, no skill packaging concerns.             | n/a                                                     |
+```
+
+The minimal repair the skill returns:
+
+```text
+# Goal
+Make pytest pass for the failing cases listed below with the smallest possible change.
+
+# Input
+- Repo root: $REPO_ROOT
+- Failing tests:
+  - tests/test_payments.py::test_refund_partial
+  - tests/test_orders.py::test_cancel_pending
+- Run command: pytest -x tests/
+
+# Task
+1. Read the two failing tests to identify the contract under test.
+2. Edit only files under src/ to satisfy the contract.
+3. After each edit, run pytest -x tests/. Stop on the first green run.
+
+# Output Format
+- List of changed files with one-line rationale each.
+- Final pytest summary line.
+- "Remaining risks" section if any test was skipped, xfailed, or fixture-mocked.
+
+# Constraints
+- Do not edit files under tests/ or migrations/.
+- Do not add new dependencies.
+
+# Validation
+Done only when `pytest -x tests/` exits 0 with no skip or xfail in the listed files.
+```
+
+What actually changed in agent behavior:
+
+- **Blast radius bounded.** Agent stops touching `migrations/` or "fixing" the test to make it pass.
+- **Done is verifiable.** "Everything passes" became "exit 0 with no skip/xfail" — the loop has a real exit condition.
+- **Reporting becomes auditable.** Agent must list changed files and surface remaining risks, not just declare victory.
+- **No silent dependency creep.** Closes the most common failure where an agent quietly installs a library to make a test pass.
+
+This is the entire value loop: inspect → diagnose → smallest useful repair. The skill does it on prompts you already have, instead of asking you to write a perfect one upfront.
+
 ## What This Is And Is Not
 
 This is a local prompt-engineering method and agent skill with worked examples. It is not an automated benchmark, a scoring system, a third-party certification, or a claim that every model will behave identically.
@@ -171,12 +232,27 @@ This project is intentionally small. It is not a prompt marketplace, prompt regi
 
 Use this skill when you want a lightweight local workflow. Use an eval platform when you need regression testing across datasets, a prompt registry when you need team collaboration and deployment controls, and a prompt library when you mainly want examples to adapt.
 
+### Why not just use Claude Skills, Codex prompts, or write it inline?
+
+The honest answer: most of the time, you should. Prompt X-Ray earns its install only on a narrow set of jobs.
+
+| You want to... | Reach for... |
+| --- | --- |
+| Reuse a one-off prompt across sessions | Native `.claude/skills` or Codex's own `SKILL.md` — you do not need this repo |
+| Write a prompt fresh, you already know what good looks like | Write it inline. The skill should not trigger here. |
+| Audit an existing prompt for the failure modes that bite agents in production: weak output contract, injection from pasted content, unbounded blast radius, no verification step | Prompt X-Ray. This is the job it was built for. |
+| Rewrite a prompt that "works most of the time" into one with a real done-condition | Prompt X-Ray. The four-layer report keeps the rewrite minimal. |
+| Package recurring agent behavior as a portable `SKILL.md` that triggers narrowly and ships across Codex/Claude Code/OpenClaw/Hermes | Prompt X-Ray's `package` mode. |
+| Run automated regressions across models or datasets | An eval platform like promptfoo. This skill is local only. |
+
+In short: this is a **prompt auditor and packager**, not a prompt library or a prompt store. If your prompts already pass the four X-Ray layers (Structure / Safety / Testability / Packaging), you do not need it.
+
 ## Validation
 
 Run the included validator:
 
 ```bash
-ruby scripts/validate_skill.rb
+python3 scripts/validate_skill.py
 ```
 
 Or:
@@ -236,7 +312,7 @@ Deferred follow-ups are tracked in [ROADMAP.md](ROADMAP.md).
 Before publishing, run:
 
 ```bash
-ruby scripts/validate_skill.rb
+python3 scripts/validate_skill.py
 git status --short
 ```
 
