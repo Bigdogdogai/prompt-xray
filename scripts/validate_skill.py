@@ -111,7 +111,7 @@ def main() -> int:
     readme_ko = read(ROOT / "README.ko.md")
     gitignore = read(ROOT / ".gitignore")
     case_files = sorted((ROOT / "tests/prompt-xray").glob("*.md"))
-    self_eval = read(ROOT / "tests/prompt-xray-runs/2026-04-27-author-self-eval.md")
+    run_notes = read(ROOT / "tests/prompt-xray-runs/2026-04-27-expected-behavior-run.md")
     coverage = read(ROOT / "docs/coverage.md")
     demo_svg = read(ROOT / "assets/demo-terminal.svg")
     demo_cast = read(ROOT / "assets/demo.cast")
@@ -167,7 +167,7 @@ def main() -> int:
         "assets/demo-session.txt",
         "assets/demo-terminal.svg",
         "tests/README.md",
-        "tests/prompt-xray-runs/2026-04-27-author-self-eval.md",
+        "tests/prompt-xray-runs/2026-04-27-expected-behavior-run.md",
         ".github/PULL_REQUEST_TEMPLATE.md",
         ".github/ISSUE_TEMPLATE/bug_report.md",
         ".github/ISSUE_TEMPLATE/feature_request.md",
@@ -256,11 +256,20 @@ def main() -> int:
             and "assets/demo.cast" in readme
         ),
         "coverage table": (
-            "Current Author Self-Evaluation" in coverage
+            "Current Expected-Behavior Run" in coverage
             and "Covered for all 20 cases" in coverage
             and "ordinary writing" in coverage.lower()
             and "Prompt X-Ray coverage notes" in readme
-            and "not a third-party benchmark" in readme
+            and "worked examples and coverage notes" in readme
+            and "not as a third-party benchmark" in readme
+        ),
+        "no cold-start homepage copy": not any(
+            re.search(
+                r"focused sprint|feedback-driven|real users|maintainer-authored|self-evaluation snapshot",
+                localized,
+                re.IGNORECASE,
+            )
+            for localized in (readme, readme_zh, readme_ja, readme_ko)
         ),
         "security private reporting": (
             "private vulnerability reporting" in security and "do not paste" in security
@@ -270,10 +279,10 @@ def main() -> int:
         ),
         "expected-behavior case count": case_count_ok,
         "expected-behavior case structure": case_structure_ok,
-        "author self-eval snapshot": (
-            all(f"[{n:02d}]" in self_eval for n in range(1, 21))
-            and "not an automated benchmark" in self_eval
-            and "third-party evaluation" in self_eval
+        "expected-behavior run notes": (
+            all(f"[{n:02d}]" in run_notes for n in range(1, 21))
+            and "not an automated benchmark" in run_notes
+            and "third-party evaluation" in run_notes
         ),
     }
 

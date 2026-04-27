@@ -27,9 +27,9 @@ All notable changes to this project are documented here.
 
 ### Changed
 
-- Reframed the repository's expected-behavior evidence from benchmark/scorecard language to coverage/self-evaluation language.
+- Reframed the repository's expected-behavior evidence from benchmark/scorecard language to coverage/run-note language.
 - Renamed `docs/benchmark.md` to `docs/coverage.md`.
-- Renamed the 2026-04-26 manual run snapshot to an author self-evaluation snapshot.
+- Renamed the manual run snapshots to expected-behavior run notes.
 - Added a README section clarifying that Prompt X-Ray coverage is not an automated benchmark, score, third-party certification, or model-comparable quality claim.
 - Moved deferred launch follow-ups from `docs/` to root `ROADMAP.md`.
 

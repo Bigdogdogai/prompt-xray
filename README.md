@@ -77,9 +77,7 @@ This is the entire value loop: inspect → diagnose → smallest useful repair. 
 
 ## What This Is And Is Not
 
-This is a local prompt-engineering method and agent skill with worked examples. It is not an automated benchmark, a scoring system, a third-party certification, or a claim that every model will behave identically.
-
-`v1.0` was authored in a focused sprint. Future iteration is intended to be feedback-driven as real users, issues, and use cases surface.
+This is a local prompt-engineering method and agent skill with worked examples. It is a review aid for prompt and skill design, not a scoring product or a guarantee that every model will behave identically.
 
 ## Why This Exists
 
@@ -108,7 +106,7 @@ Prompt X-Ray is the skill's working method: inspect the prompt's skeleton, find 
 
 Analyze mode emits a **Prompt X-Ray Report**: `Verdict`, optional `Score`, and a table with `Layer`, `Status`, `Evidence`, and `Smallest useful repair`. Concrete fixes should be returned as a block replacement or unified diff when that is clearer than prose.
 
-The included [Prompt X-Ray coverage notes](docs/coverage.md) map 20 prompt failure patterns, including direct injection risks, subtle few-shot and Markdown/HTML injection, hidden-reasoning leakage, weak output contracts, local workflow risks, long-form realistic prompts, and ordinary-writing false-trigger checks. They are maintainer-authored worked examples and a self-evaluation snapshot, not a third-party benchmark or model-comparable quality claim. See [before/after examples](docs/before-after.md) for concrete repairs.
+The included [Prompt X-Ray coverage notes](docs/coverage.md) map 20 prompt failure patterns, including direct injection risks, subtle few-shot and Markdown/HTML injection, hidden-reasoning leakage, weak output contracts, local workflow risks, long-form realistic prompts, and ordinary-writing false-trigger checks. Use them as worked examples and coverage notes, not as a third-party benchmark or model-comparable quality claim. See [before/after examples](docs/before-after.md) for concrete repairs.
 
 ## Quick Start
 
@@ -280,7 +278,7 @@ The validator checks:
 Manual validation scenarios are listed in [examples/test-matrix.md](examples/test-matrix.md).
 Prompt X-Ray failure-pattern cases are listed in [tests/README.md](tests/README.md).
 The 20-case Prompt X-Ray coverage table is in [docs/coverage.md](docs/coverage.md).
-The current author self-evaluation snapshot is in [tests/prompt-xray-runs/2026-04-27-author-self-eval.md](tests/prompt-xray-runs/2026-04-27-author-self-eval.md).
+The current expected-behavior run notes are in [tests/prompt-xray-runs/2026-04-27-expected-behavior-run.md](tests/prompt-xray-runs/2026-04-27-expected-behavior-run.md).
 Deferred follow-ups are tracked in [ROADMAP.md](ROADMAP.md).
 
 ## Repository Layout

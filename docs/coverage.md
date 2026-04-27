@@ -1,6 +1,6 @@
 # Prompt X-Ray Coverage
 
-Coverage of expected behaviors across 20 prompt failure patterns. Authored and self-evaluated by the maintainer; not a benchmark, not third-party verified, and not model-comparable. Use this as worked examples, not as a quality claim.
+Coverage of expected behaviors across 20 prompt failure patterns. These notes are reproducible worked examples, not an automated benchmark, third-party certification, or model-comparable quality claim.
 
 ## Coverage Areas
 
@@ -16,20 +16,20 @@ The coverage set maps 20 prompt-engineering cases in [tests/prompt-xray](../test
 | Local agent workflow risk | 08, 10, 12, 16, 18 | Add file scope, command boundaries, verification, and remaining-risk reporting. |
 | Long-form realistic prompts | 16, 17, 18 | Check multi-section prompts that combine useful context with unsafe or underspecified instructions. |
 
-## Current Author Self-Evaluation
+## Current Expected-Behavior Run
 
-Snapshot: [2026-04-27 author self-eval](../tests/prompt-xray-runs/2026-04-27-author-self-eval.md)
+Run notes: [2026-04-27 expected-behavior run](../tests/prompt-xray-runs/2026-04-27-expected-behavior-run.md)
 
 | Coverage check | Current observation |
 | --- | --- |
-| Expected mode identified for prompt-engineering cases | Covered in the self-eval snapshot |
-| Ordinary writing false-trigger avoided | Covered in the self-eval snapshot |
-| Injection-style risks identified | Covered in the self-eval snapshot |
-| Hidden reasoning leakage identified | Covered in the self-eval snapshot |
-| Missing or weak output-format issues identified | Covered in the self-eval snapshot |
-| Local agent workflow risks identified | Covered in the self-eval snapshot |
-| Long-form realistic prompts included | Covered in the self-eval snapshot |
-| Subtle indirect injection cases included | Covered in the self-eval snapshot |
+| Expected mode identified for prompt-engineering cases | Covered in the current run notes |
+| Ordinary writing false-trigger avoided | Covered in the current run notes |
+| Injection-style risks identified | Covered in the current run notes |
+| Hidden reasoning leakage identified | Covered in the current run notes |
+| Missing or weak output-format issues identified | Covered in the current run notes |
+| Local agent workflow risks identified | Covered in the current run notes |
+| Long-form realistic prompts included | Covered in the current run notes |
+| Subtle indirect injection cases included | Covered in the current run notes |
 | Smallest useful repair recorded for every case | Covered for all 20 cases |
 
 ## How To Reproduce
@@ -38,7 +38,7 @@ Snapshot: [2026-04-27 author self-eval](../tests/prompt-xray-runs/2026-04-27-aut
 2. Start a fresh agent session.
 3. For each file in `tests/prompt-xray/*.md`, ask the agent to analyze the `Input Prompt` using Prompt X-Ray.
 4. Compare the result with the `Expected X-Ray Findings` and `Minimal Repair` sections.
-5. Record observed behavior in `tests/prompt-xray-runs/<date>-author-self-eval.md`.
+5. Record observed behavior in `tests/prompt-xray-runs/<date>-expected-behavior-run.md`.
 
 ## What This Coverage Is Good For
 

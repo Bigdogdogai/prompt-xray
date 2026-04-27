@@ -2,7 +2,7 @@
 
 This directory contains 20 prompt failure patterns for manual review. Each case includes an input prompt, the mode that should apply, expected X-Ray findings, and the smallest useful repair. These files power the transparent coverage notes in [../docs/coverage.md](../docs/coverage.md); they are not a hosted automated benchmark or third-party evaluation.
 
-An author self-evaluation snapshot using the current Prompt X-Ray Report format is available at [prompt-xray-runs/2026-04-27-author-self-eval.md](prompt-xray-runs/2026-04-27-author-self-eval.md).
+Current expected-behavior run notes using the Prompt X-Ray Report format are available at [prompt-xray-runs/2026-04-27-expected-behavior-run.md](prompt-xray-runs/2026-04-27-expected-behavior-run.md).
 
 ## Coverage
 
